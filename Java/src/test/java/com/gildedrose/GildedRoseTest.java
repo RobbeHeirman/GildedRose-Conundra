@@ -14,10 +14,9 @@ class GildedRoseTest {
         assertEquals(quality, item.quality);
     }
 
-
     @Nested
     class NormalItemTest {
-        Item normalItemFactory(int sellIn, int quality) {
+        Item createNormalItem(int sellIn, int quality) {
             return new Item("Acolyte's Robe", sellIn, quality);
 
         }
@@ -25,14 +24,14 @@ class GildedRoseTest {
         @Test
         void happyDay() {
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(8, 12),
+                createNormalItem(8, 12),
                 1,
                 5,
                 7
             );
 
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(1, 1),
+                createNormalItem(1, 1),
                 0,
                 0,
                 1
@@ -42,14 +41,14 @@ class GildedRoseTest {
         @Test
         void expiredDegrade() {
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(3, 20),
+                createNormalItem(3, 20),
                 -3,
                 11,
                 6
             );
 
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(2, 1),
+                createNormalItem(2, 1),
                 0,
                 0,
                 2
@@ -59,20 +58,20 @@ class GildedRoseTest {
         @Test
         void belowZeroQuality() {
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(4, 2),
+                createNormalItem(4, 2),
                 1,
                 0,
                 3
             );
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(3, 1),
+                createNormalItem(3, 1),
                 0,
                 0,
                 3
             );
 
             assertSellInQualityEqualAfterDays(
-                normalItemFactory(1, 2),
+                createNormalItem(1, 2),
                 -1,
                 0,
                 2
@@ -80,4 +79,54 @@ class GildedRoseTest {
         }
     }
 
+    @Nested
+    class AgedItemTest {
+        Item agedBrieFactory(int sellIn, int quality) {
+            return new Item("Aged Brie", sellIn, quality);
+        }
+
+        @Test
+        void happyDay() {
+            assertSellInQualityEqualAfterDays(
+                agedBrieFactory(1, 1),
+                0,
+                2,
+                1
+            );
+        }
+
+        @Test
+        void pastSellIn() {
+            assertSellInQualityEqualAfterDays(
+                agedBrieFactory(0, 1),
+                -1,
+                3,
+                1
+            );
+        }
+
+        @Test
+        void notBiggerThenMax() {
+            assertSellInQualityEqualAfterDays(
+                agedBrieFactory(1, 50),
+                0,
+                50,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                agedBrieFactory(2, 49),
+                0,
+                50,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                agedBrieFactory(0, 49),
+                -1,
+                50,
+                1
+            );
+        }
+    }
 }

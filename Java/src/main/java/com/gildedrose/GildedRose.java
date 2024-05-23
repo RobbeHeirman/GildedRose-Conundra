@@ -10,7 +10,7 @@ class GildedRose {
     }
 
     public void updateQualityForDays(int days) {
-        IntStream.range(0, days).forEach(_ -> updateQuality());
+        IntStream.range(0, days).forEach(i -> updateQuality());
     }
 
     public void updateQuality() {
