@@ -81,14 +81,14 @@ class GildedRoseTest {
 
     @Nested
     class AgedItemTest {
-        Item agedBrieFactory(int sellIn, int quality) {
+        Item createAgedItem(int sellIn, int quality) {
             return new Item("Aged Brie", sellIn, quality);
         }
 
         @Test
         void happyDay() {
             assertSellInQualityEqualAfterDays(
-                agedBrieFactory(1, 1),
+                createAgedItem(1, 1),
                 0,
                 2,
                 1
@@ -98,7 +98,7 @@ class GildedRoseTest {
         @Test
         void pastSellIn() {
             assertSellInQualityEqualAfterDays(
-                agedBrieFactory(0, 1),
+                createAgedItem(0, 1),
                 -1,
                 3,
                 1
@@ -108,24 +108,55 @@ class GildedRoseTest {
         @Test
         void notBiggerThenMax() {
             assertSellInQualityEqualAfterDays(
-                agedBrieFactory(1, 50),
+                createAgedItem(1, 50),
                 0,
                 50,
                 1
             );
 
             assertSellInQualityEqualAfterDays(
-                agedBrieFactory(2, 49),
+                createAgedItem(2, 49),
                 0,
                 50,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                agedBrieFactory(0, 49),
+                createAgedItem(0, 49),
                 -1,
                 50,
                 1
+            );
+        }
+    }
+
+    @Nested
+    class LegendaryItemTest {
+        Item createLegendaryItem(int sellIn, int quality) {
+            return new Item("Sulfuras, Hand of Ragnaros", sellIn, quality);
+        }
+
+        @Test
+        void happyDay() {
+            assertSellInQualityEqualAfterDays(
+                createLegendaryItem(2, 40),
+                2,
+                40,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                createLegendaryItem(2, 50),
+                2,
+                50,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                createLegendaryItem(2, 1),
+                2,
+                1,
+                3
             );
         }
     }
