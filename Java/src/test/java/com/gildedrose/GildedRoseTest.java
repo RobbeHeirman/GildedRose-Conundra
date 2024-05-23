@@ -160,4 +160,124 @@ class GildedRoseTest {
             );
         }
     }
+
+    @Nested
+    class BackstagePassTest {
+        Item backstagePassFactory(int sellIn, int quality) {
+            return new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
+        }
+
+        @Test
+        void happyDay() {
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(12, 14),
+                11,
+                15,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(12, 14),
+                10,
+                16,
+                2
+            );
+        }
+
+        @Test
+        void belowTen() {
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(10, 34),
+                9,
+                36,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(11, 34),
+                9,
+                37,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(11, 34),
+                5,
+                45,
+                6
+            );
+        }
+
+        @Test
+        void belowFive() {
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(5, 12),
+                4,
+                15,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(6, 12),
+                4,
+                17,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(5, 12),
+                0,
+                27,
+                5
+            );
+        }
+
+        @Test
+        void expiredPasses() {
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(1, 40),
+                -1,
+                0,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(0, 1),
+                -2,
+                0,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(1, 49),
+                -1,
+                0,
+                2
+            );
+        }
+
+        @Test
+        void notAboveMax() {
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(20, 50),
+                19,
+                50,
+                1
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(10, 49),
+                8,
+                50,
+                2
+            );
+
+            assertSellInQualityEqualAfterDays(
+                backstagePassFactory(5, 49),
+                2,
+                50,
+                3
+            );
+        }
+    }
 }
