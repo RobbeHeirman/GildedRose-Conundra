@@ -2,8 +2,12 @@ package com.gildedrose;
 
 import java.util.stream.IntStream;
 
+
+
 class GildedRose {
     Item[] items;
+
+    private static final int MAX_ITEM_QUALITY = 50;
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -16,7 +20,7 @@ class GildedRose {
     private static void updateAgedItem(final Item item) {
         item.sellIn--;
         final int addToQuality = item.sellIn < 0 ? 2 : 1;
-        item.quality = Math.min(50, item.quality + addToQuality);
+        item.quality = Math.min(MAX_ITEM_QUALITY, item.quality + addToQuality);
     }
 
     private static void updateBackStageItem(final Item item) {
@@ -28,7 +32,7 @@ class GildedRose {
         }
 
         final int addToQuality = item.sellIn < 5 ? 3 : item.sellIn < 10 ? 2 : 1;
-        item.quality = Math.min(50, item.quality + addToQuality);
+        item.quality = Math.min(MAX_ITEM_QUALITY, item.quality + addToQuality);
     }
 
     public void updateQuality() {
