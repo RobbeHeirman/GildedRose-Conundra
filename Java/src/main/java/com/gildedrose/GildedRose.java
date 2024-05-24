@@ -48,14 +48,11 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
             // Item If statement part
-            if (item.name.equals("Aged Brie")) {
-                updateAgedItem(item);
-            } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                updateBackStageItem(item);
-            } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-                updateLegendaryItem(item);
-            } else {
-                updateRegularItem(item);
+            switch (item.name) {
+                case "Aged Brie" -> updateAgedItem(item);
+                case "Backstage passes to a TAFKAL80ETC concert" -> updateBackStageItem(item);
+                case "Sulfuras, Hand of Ragnaros" -> updateLegendaryItem(item);
+                default -> updateRegularItem(item);
             }
         }
 
