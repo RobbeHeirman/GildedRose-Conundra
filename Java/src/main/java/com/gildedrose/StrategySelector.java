@@ -1,7 +1,7 @@
 package com.gildedrose;
 
-public interface StrategySelector<T> {
-    T getUpdateStrategy(Item item);
+public interface StrategySelector {
+    UpdateStrategy getUpdateStrategy(Item item);
 
     static UpdateStrategy defaultStrategySelector(Item item) {
         return switch (item.name) {

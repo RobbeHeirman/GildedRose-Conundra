@@ -3,22 +3,23 @@ package com.gildedrose;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StrategySelectorBuilder<T> {
-    private T defaultUpdateStrategy;
-    private final Map<String, T> mappedStrategies = new HashMap<>();
+public class StrategySelectorBuilder {
+    private UpdateStrategy defaultUpdateStrategy;
+    private final Map<String, UpdateStrategy> mappedStrategies = new HashMap<>();
     StrategySelectorBuilder() {
+        defaultUpdateStrategy = (item) -> {};
     }
-    public StrategySelectorBuilder<T> setDefault(T strategy) {
+    public StrategySelectorBuilder setDefault(UpdateStrategy strategy) {
         defaultUpdateStrategy = strategy;
         return this;
     }
 
-    public StrategySelectorBuilder<T> setStrategy(String name, T strategy) {
+    public StrategySelectorBuilder setStrategy(String name, UpdateStrategy strategy) {
         mappedStrategies.put(name, strategy);
         return this;
     }
 
-    public StrategySelector<T> build() {
+    public StrategySelector build() {
         return (item -> mappedStrategies.getOrDefault(item.name, defaultUpdateStrategy));
     }
 }
