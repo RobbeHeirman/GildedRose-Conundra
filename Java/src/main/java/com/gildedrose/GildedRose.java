@@ -34,10 +34,7 @@ class GildedRose {
                         }
                     }
                 }
-            } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            } else {
             }
-
             // Item If statement part
             if (item.name.equals("Aged Brie")) {
                 item.sellIn--;
