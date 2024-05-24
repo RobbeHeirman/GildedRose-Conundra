@@ -45,3 +45,11 @@ The specs state items quality boundaries are 0 <= quality <= 50 this is enforced
 is actually an invariant property on Item. We will not implement using DbC as this is an out-of-scope topic, but we
 should probably do some precondition check before running our items 
 (as we cannot check this on item construction because of the overpowered Goblin)
+
+### Step5: What do we recognize in our current code setup?
+Our code looks clean now, but potential future problems may arise with the current code setup. If more types
+of items define we will need to write more methods to handle the behaviour in the GildedRoseApp. Resulting in one big 
+class where all our methods will live in. One specific pattern comes to mind that solves [this](https://refactoring.guru/design-patterns/strategy)
+The idea is that the GildedTros App only wants to update an item, but doesn't really need to hold the details of the
+implementation.
+

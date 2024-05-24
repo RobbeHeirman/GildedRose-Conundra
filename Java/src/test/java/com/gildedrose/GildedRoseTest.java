@@ -284,7 +284,6 @@ class GildedRoseTest {
 
     @Nested
     class PreConditionTests {
-
         GildedRose createGildedRose(Item... items) {
             return new GildedRose(items);
         }
