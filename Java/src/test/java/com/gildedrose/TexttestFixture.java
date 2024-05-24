@@ -16,7 +16,14 @@ public class TexttestFixture {
                 // this conjured item does not work properly yet
                 new Item("Conjured Mana Cake", 3, 6) };
 
-        GildedRose app = new GildedRose(items);
+        StrategySelector selector = new StrategySelectorBuilder()
+            .setDefault(UpdateStrategy::updateDefaultAgedItem)
+            .setStrategy(Constants.AGED_ITEM, UpdateStrategy::updateDefaultRegularItem)
+            .setStrategy(Constants.BACKSTAGE_ITEM, UpdateStrategy::updateDefaultBackStageItem)
+            .setStrategy(Constants.LEGENDARY_ITEM, UpdateStrategy::updateDefaultLegendaryItem)
+            .build();
+
+        GildedRose app = new GildedRose(items, selector);
 
         int days = 2;
         if (args.length > 0) {

@@ -13,7 +13,6 @@ public class GildedRose {
     final StrategySelector strategySelector;
 
     /**
-     *
      * @param items Simple GildedRose items. Will be modified by GildedRose.
      */
     public GildedRose(Item[] items) {
@@ -21,9 +20,7 @@ public class GildedRose {
     }
 
     public GildedRose(Item[] items, StrategySelector strategySelector) {
-        if (!testItemsAreValid(items)) {
-            throw new IllegalArgumentException("The given items list contains invalid items");
-        }
+        testItemsAreValid(items);
         this.items = items;
         this.strategySelector = strategySelector;
     }
@@ -31,6 +28,7 @@ public class GildedRose {
     /**
      * Does the update logic of gilded rose. Modifies all Item objects passed in to the GildedRoseObjects
      * according to the GildedRoseSpecs.
+     *
      * @see <a href="https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.md">Specs</a>
      */
     public void updateQuality() {
@@ -39,14 +37,28 @@ public class GildedRose {
 
     /**
      * calls updateQuality for n days
+     *
      * @param days is the amount of days we wantto call updateQuality for.
      */
     public void updateQualityForDays(int days) {
         IntStream.range(0, days).forEach(i -> updateQuality());
     }
 
-    protected boolean testItemsAreValid(Item[] items) {
-        return Arrays.stream(items)
-            .noneMatch(item -> item.quality > Constants.MAX_ITEM_QUALITY || item.quality < Constants.MIN_ITEM_QUALITY);
+    /**
+     * TODO: This is ugly and should probably be somewhere else
+     */
+    protected void testItemsAreValid(Item[] items) {
+        for (Item item : items) {
+            if (item.name.equals(Constants.LEGENDARY_ITEM)) {
+                if (item.quality != Constants.LEGENDARY_QUALITY) {
+                    throw new IllegalArgumentException("Item is invalid: %s".formatted(item.name));
+                }
+            } else {
+                if (item.quality < Constants.MIN_ITEM_QUALITY || item.quality > Constants.MAX_ITEM_QUALITY) {
+                    throw new IllegalArgumentException("Item is invalid: %s".formatted(item.name));
+
+                }
+            }
+        }
     }
 }

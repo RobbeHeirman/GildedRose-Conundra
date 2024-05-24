@@ -56,5 +56,9 @@ implementation.
 ## Step6: Now that we encapsulated the concrete logic 
 The logic is split off, looks great! Still one issue tho... What if we want to open a seconded Gilded Rose with other
 items and requirements? Gilded Rose depends on the StrategySelector... So let's change that!
-Adding an interface for a strategyselector so we can easily switch out selectors.
+Adding an interface for a strategyselector so we can easily switch out selectors. Added an extra constructor so that
+the strategySelector can be injected.
+
+## Step7: Now we can do something cool with runtime behaviour right
+In this step i will showcase an example of what we can do now we decoupled the update logic from our driver class.
 
