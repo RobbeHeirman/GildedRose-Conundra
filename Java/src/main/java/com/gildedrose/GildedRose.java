@@ -46,26 +46,33 @@ class GildedRose {
                 item.sellIn = item.sellIn - 1;
             }
 
-            if (item.sellIn >= 0) {
-                return;
-            }
-
             if (item.name.equals("Aged Brie")) {
+                if (item.sellIn >= 0) {
+                    return;
+                }
+
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
                 }
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (item.sellIn >= 0) {
+                    return;
+                }
                 item.quality = item.quality - item.quality;
             } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                if (item.sellIn >= 0) {
+                    return;
+                }
 
             } else {
+                if (item.sellIn >= 0) {
+                    return;
+                }
                 if (item.quality > 0) {
-                        item.quality = item.quality - 1;
-                    }
+                    item.quality = item.quality - 1;
                 }
             }
-
         }
-    }
 
+    }
 }
