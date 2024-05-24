@@ -13,22 +13,26 @@ class GildedRose {
         IntStream.range(0, days).forEach(i -> updateQuality());
     }
 
+    private static void updateAgedItem(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+        item.sellIn--;
+
+        if (item.sellIn >= 0) {
+            return;
+        }
+
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+    }
+
     public void updateQuality() {
         for (Item item : items) {
             // Item If statement part
             if (item.name.equals("Aged Brie")) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
-                item.sellIn--;
-
-                if (item.sellIn >= 0) {
-                    return;
-                }
-
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+                    updateAgedItem(item);
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
