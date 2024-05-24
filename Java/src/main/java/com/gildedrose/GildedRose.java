@@ -7,8 +7,7 @@ import java.util.stream.IntStream;
  * It takes an array of {@link Item} where it will perform update operation on {@link Item#quality} and
  * {@link Item#sellIn} modifying the objects on each updateQuality call.
  */
-class GildedRose {
-
+public class GildedRose {
     private static final int MIN_ITEM_QUALITY = 0;
     private static final int MAX_ITEM_QUALITY = 50;
 
@@ -52,6 +51,7 @@ class GildedRose {
 
     private static void updateAgedItem(final Item item) {
         item.sellIn--;
+
         final int addToQuality = item.sellIn < 0 ? 2 : 1;
         item.quality = Math.min(MAX_ITEM_QUALITY, item.quality + addToQuality);
     }
