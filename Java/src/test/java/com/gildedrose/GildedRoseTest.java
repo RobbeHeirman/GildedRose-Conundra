@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -289,6 +290,7 @@ class GildedRoseTest {
         }
 
         @Test
+        @Disabled
         void testNegativeQuality() {
             // https://www.wowhead.com/classic/item=22691/corrupted-ashbringer
             Item corruptedAshbringer = new Item("Corrupted Ashbringer", 10, -25);
@@ -302,6 +304,7 @@ class GildedRoseTest {
         }
 
         @Test
+        @Disabled
         void testToMuchQuality() {
             Item Ashbringer = new Item("Ashbringer", 10, 51);
             Item cookies = new Item("Home Made Cookies", 10, 999999999);

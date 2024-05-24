@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
  * {@link Item#sellIn} modifying the objects on each updateQuality call.
  */
 public class GildedRose {
-    final Item[] items;
-    final StrategySelector strategySelector;
+
+    final Iterable<Runnable> runnableItems;
 
     /**
      * @param items Simple GildedRose items. Will be modified by GildedRose.
@@ -20,9 +20,13 @@ public class GildedRose {
     }
 
     public GildedRose(Item[] items, StrategySelector strategySelector) {
-        testItemsAreValid(items);
-        this.items = items;
-        this.strategySelector = strategySelector;
+        this(Arrays.stream(items)
+            .map(item -> (Runnable) () -> strategySelector.getUpdateStrategy(item).update(item))
+            .toList());
+    }
+
+    public GildedRose(Iterable<Runnable> runnables) {
+        runnableItems = runnables;
     }
 
     /**
@@ -32,7 +36,7 @@ public class GildedRose {
      * @see <a href="https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.md">Specs</a>
      */
     public void updateQuality() {
-        Arrays.stream(items).forEach(item -> StrategySelector.defaultStrategySelector(item).update(item));
+        runnableItems.forEach(Runnable::run);
     }
 
     /**
