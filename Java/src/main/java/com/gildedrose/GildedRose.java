@@ -13,19 +13,10 @@ class GildedRose {
         IntStream.range(0, days).forEach(i -> updateQuality());
     }
 
-    private static void updateAgedItem(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
+    private static void updateAgedItem(final Item item) {
         item.sellIn--;
-
-        if (item.sellIn >= 0) {
-            return;
-        }
-
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
+        final int addToQuality = item.sellIn < 0 ? 2 : 1;
+        item.quality = Math.min(50, item.quality + addToQuality);
     }
 
     public void updateQuality() {
