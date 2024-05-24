@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GildedRoseTest {
 
@@ -278,6 +279,34 @@ class GildedRoseTest {
                 50,
                 3
             );
+        }
+    }
+
+    @Nested
+    class PreConditionTests {
+
+        GildedRose createGildedRose(Item... items) {
+            return new GildedRose(items);
+        }
+
+        @Test
+        void testNegativeQuality() {
+            // https://www.wowhead.com/classic/item=22691/corrupted-ashbringer
+            Item corruptedAshbringer = new Item("Corrupted Ashbringer", 10, -25);
+            assertThrows(IllegalArgumentException.class, () -> createGildedRose(corruptedAshbringer));
+
+            Item shoes  = new Item("Magical shoes that are always one size to small", 10, -1);
+            assertThrows(IllegalArgumentException.class, () -> createGildedRose(shoes));
+
+            assertThrows(IllegalArgumentException.class, () -> createGildedRose(corruptedAshbringer, shoes));
+
+        }
+
+        @Test
+        void testToMuchQuality() {
+            Item Ashbringer = new Item("Ashbringer", 10, 51);
+            Item cookies = new Item("Home Made Cookies", 10, 999999999);
+            assertThrows(IllegalArgumentException.class, () -> createGildedRose(Ashbringer, cookies));
         }
     }
 }
