@@ -5,9 +5,14 @@ import java.util.stream.IntStream;
 
 
 class GildedRose {
-    Item[] items;
-
+    private static final int MIN_ITEM_QUALITY = 0;
     private static final int MAX_ITEM_QUALITY = 50;
+
+    private static final String AGED_ITEM = "Aged Brie";
+    private static final String LEGENDARY_ITEM = "Sulfuras, Hand of Ragnaros";
+    private static final String BACKSTAGE_ITEM = "Backstage passes to a TAFKAL80EE";
+
+    Item[] items;
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -27,7 +32,7 @@ class GildedRose {
         item.sellIn--;
 
         if (item.sellIn < 0) {
-            item.quality = 0;
+            item.quality = MIN_ITEM_QUALITY;
             return;
         }
 
@@ -42,16 +47,16 @@ class GildedRose {
         item.sellIn--;
 
         final int subtractQuality = item.sellIn < 0 ? 2 : 1;
-        item.quality = Math.max(0, item.quality - subtractQuality);
+        item.quality = Math.max(MIN_ITEM_QUALITY, item.quality - subtractQuality);
     }
 
     public void updateQuality() {
         for (Item item : items) {
             // Item If statement part
             switch (item.name) {
-                case "Aged Brie" -> updateAgedItem(item);
-                case "Backstage passes to a TAFKAL80ETC concert" -> updateBackStageItem(item);
-                case "Sulfuras, Hand of Ragnaros" -> updateLegendaryItem(item);
+                case AGED_ITEM -> updateAgedItem(item);
+                case BACKSTAGE_ITEM -> updateBackStageItem(item);
+                case LEGENDARY_ITEM-> updateLegendaryItem(item);
                 default -> updateRegularItem(item);
             }
         }
