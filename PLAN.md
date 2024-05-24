@@ -19,3 +19,18 @@ that the implementation of logic is quite messy. Second, no unit tests are provi
 we could use some unittest testing the logic of the different parts of the code on top of the end to end text test.
 
 So the logical first step is to write unittests for the GildedRose class.
+
+
+## Step2: Writing Unit Tests
+
+Since no code can be tested in isolation but the driver code of GildedRose.UpdateQuality we will start there.
+I will construct unit tests based on the requirements deconstructed in what i believe to be code that can be isolated
+later on. We do best effort to cover edge cases.
+
+
+## Step3: Refactor complex conditional statements
+
+Before we actually start to refactor we can form an intuitive plan in what direction we want to refactor.
+The requirements describe behaviour for 'types' of items. We probably want to end up isolating behaviour for each
+item. Some resources about techniques to apply can be found here: 
+https://refactoring.guru/refactoring/techniques/simplifying-conditional-expressions
