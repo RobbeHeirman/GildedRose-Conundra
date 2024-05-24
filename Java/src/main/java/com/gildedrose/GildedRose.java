@@ -19,10 +19,6 @@ class GildedRose {
                 || item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
-
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-
-                    }
                 }
             }
             // Item If statement part
