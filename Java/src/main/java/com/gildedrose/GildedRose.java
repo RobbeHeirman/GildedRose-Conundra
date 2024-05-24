@@ -36,11 +36,9 @@ class GildedRose {
                 }
             } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
             } else {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
             }
 
+            // Item If statement part
             if (item.name.equals("Aged Brie")) {
                 item.sellIn--;
 
@@ -65,6 +63,9 @@ class GildedRose {
                 }
 
             } else {
+                if (item.quality > 0) {
+                    item.quality = item.quality - 1;
+                }
                 item.sellIn--;
 
                 if (item.sellIn >= 0) {
