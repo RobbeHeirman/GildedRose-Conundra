@@ -27,20 +27,8 @@ class GildedRose {
             return;
         }
 
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
-        if (item.sellIn < 10) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-        }
-
-        if (item.sellIn < 5) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-            }
-        }
+        final int addToQuality = item.sellIn < 5 ? 3 : item.sellIn < 10 ? 2 : 1;
+        item.quality = Math.min(50, item.quality + addToQuality);
     }
 
     public void updateQuality() {
