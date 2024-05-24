@@ -1,6 +1,8 @@
 package com.gildedrose;
 
+import java.util.Arrays;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * GildedRose driver. This class contains the logic for the GildedRoseSpecifications.
@@ -13,7 +15,7 @@ public class GildedRose {
 
     private static final String AGED_ITEM = "Aged Brie";
     private static final String LEGENDARY_ITEM = "Sulfuras, Hand of Ragnaros";
-    private static final String BACKSTAGE_ITEM = "Backstage passes to a TAFKAL80EE";
+    private static final String BACKSTAGE_ITEM = "Backstage passes to a TAFKAL80ETC concert";
 
     final Item[] items;
 
@@ -22,6 +24,9 @@ public class GildedRose {
      * @param items Simple GildedRose items. Will be modified by GildedRose.
      */
     public GildedRose(Item[] items) {
+        if (!testItemsAreValid(items)) {
+            throw new IllegalArgumentException("The given items list contains invalid items");
+        }
         this.items = items;
     }
 
@@ -47,6 +52,11 @@ public class GildedRose {
      */
     public void updateQualityForDays(int days) {
         IntStream.range(0, days).forEach(i -> updateQuality());
+    }
+
+    protected boolean testItemsAreValid(Item[] items) {
+        return Arrays.stream(items)
+            .noneMatch(item -> item.quality > MAX_ITEM_QUALITY || item.quality < MIN_ITEM_QUALITY);
     }
 
     private static void updateAgedItem(final Item item) {
