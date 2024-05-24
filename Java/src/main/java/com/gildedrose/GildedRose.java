@@ -38,6 +38,20 @@ class GildedRose {
     private static void updateLegendaryItem(final Item item) {
     }
 
+    private static void updateRegularItem(final Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+        item.sellIn--;
+
+        if (item.sellIn >= 0) {
+            return;
+        }
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+    }
+
     public void updateQuality() {
         for (Item item : items) {
             // Item If statement part
@@ -48,17 +62,7 @@ class GildedRose {
             } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
                 updateLegendaryItem(item);
             } else {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
-                item.sellIn--;
-
-                if (item.sellIn >= 0) {
-                    return;
-                }
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
+                updateRegularItem(item);
             }
         }
 
