@@ -35,6 +35,9 @@ class GildedRose {
         item.quality = Math.min(MAX_ITEM_QUALITY, item.quality + addToQuality);
     }
 
+    private static void updateLegendaryItem(final Item item) {
+    }
+
     public void updateQuality() {
         for (Item item : items) {
             // Item If statement part
@@ -43,11 +46,7 @@ class GildedRose {
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 updateBackStageItem(item);
             } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-
-                if (item.sellIn >= 0) {
-                    return;
-                }
-
+                updateLegendaryItem(item);
             } else {
                 if (item.quality > 0) {
                     item.quality = item.quality - 1;
