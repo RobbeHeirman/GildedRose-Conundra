@@ -17,12 +17,13 @@ class GildedRose {
         for (Item item : items) {
             if (item.name.equals("Aged Brie")
                 || item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+
             }
             // Item If statement part
             if (item.name.equals("Aged Brie")) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
+                }
                 item.sellIn--;
 
                 if (item.sellIn >= 0) {
@@ -33,6 +34,9 @@ class GildedRose {
                     item.quality = item.quality + 1;
                 }
             } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                if (item.quality < 50) {
+                    item.quality = item.quality + 1;
+                }
                 if (item.sellIn < 11) {
                     if (item.quality < 50) {
                         item.quality = item.quality + 1;
