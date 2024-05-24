@@ -9,7 +9,6 @@ end-to-end tests ourselves. Followed the readme and checked if everything works 
 "Golden Master" text with the current accepted output of the program.
 
 ## Step1: Requirements and exploring the code
-
 Reading up on what has to happen, the following two things are expected of us.
 First we need to improve the current design of the code.
 and in a second step we need to add extra functionality for "conjured items"
@@ -22,15 +21,27 @@ So the logical first step is to write unittests for the GildedRose class.
 
 
 ## Step2: Writing Unit Tests
-
 Since no code can be tested in isolation but the driver code of GildedRose.UpdateQuality we will start there.
 I will construct unit tests based on the requirements deconstructed in what i believe to be code that can be isolated
 later on. We do best effort to cover edge cases.
 
 
 ## Step3: Refactor complex conditional statements
-
 Before we actually start to refactor we can form an intuitive plan in what direction we want to refactor.
 The requirements describe behaviour for 'types' of items. We probably want to end up isolating behaviour for each
 item. Some resources about techniques to apply can be found here: 
 [Refactoring Guru - Conditionals](https://refactoring.guru/refactoring/techniques/simplifying-conditional-expressions)
+
+### Post Step 3 remarks:
+I tried to make the commits small, so it is clear in what order i decide to refactor.
+I also want to remark that [commit 34](https://github.com/RobbeHeirman/GildedRose-Conundra/commit/bdcb91ac0df73f3126cb9158a6a62a9dac919346)
+is the simple clean solution. Quoting: [Simple is better then complex](https://peps.python.org/pep-0020/).
+If the 'real world' use case was this small i think the refactors that will follow will just complicate things with marginal
+generalization and adaptability benefits. But writing cool abstractions is fun and since this is a refactoring exercise we
+will go a bit deeper into what further refactors we can appply.
+
+### Step4: We are not enforcing the boundary values of our items?
+The specs state items quality boundaries are 0 <= quality <= 50 this is enforced during the operations. This
+is actually an invariant property on Item. We will not implement using DbC as this is an out-of-scope topic, but we
+should probably do some precondition check before running our items 
+(as we cannot check this on item construction because of the overpowered Goblin)
