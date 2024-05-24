@@ -16,7 +16,7 @@ public class TexttestFixture {
                 // this conjured item does not work properly yet
                 new Item("Conjured Mana Cake", 3, 6) };
 
-        StrategySelector selector = new StrategySelectorBuilder()
+        StrategySelector<UpdateStrategy> selector = new StrategySelectorBuilder<UpdateStrategy>()
             .setDefault(UpdateStrategy::updateDefaultAgedItem)
             .setStrategy(Constants.AGED_ITEM, UpdateStrategy::updateDefaultRegularItem)
             .setStrategy(Constants.BACKSTAGE_ITEM, UpdateStrategy::updateDefaultBackStageItem)

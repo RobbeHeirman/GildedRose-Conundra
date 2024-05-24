@@ -19,7 +19,7 @@ public class GildedRose {
         this(items, StrategySelector::defaultStrategySelector);
     }
 
-    public GildedRose(Item[] items, StrategySelector strategySelector) {
+    public GildedRose(Item[] items, StrategySelector<UpdateStrategy> strategySelector) {
         this(Arrays.stream(items)
             .map(item -> (Runnable) () -> strategySelector.getUpdateStrategy(item).update(item))
             .toList());
