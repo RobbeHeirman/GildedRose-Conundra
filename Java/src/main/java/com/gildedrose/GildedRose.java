@@ -10,16 +10,22 @@ import java.util.stream.IntStream;
  */
 public class GildedRose {
     final Item[] items;
+    final StrategySelector strategySelector;
 
     /**
      *
      * @param items Simple GildedRose items. Will be modified by GildedRose.
      */
     public GildedRose(Item[] items) {
+        this(items, StrategySelector::defaultStrategySelector);
+    }
+
+    public GildedRose(Item[] items, StrategySelector strategySelector) {
         if (!testItemsAreValid(items)) {
             throw new IllegalArgumentException("The given items list contains invalid items");
         }
         this.items = items;
+        this.strategySelector = strategySelector;
     }
 
     /**
@@ -28,7 +34,7 @@ public class GildedRose {
      * @see <a href="https://github.com/emilybache/GildedRose-Refactoring-Kata/blob/main/GildedRoseRequirements.md">Specs</a>
      */
     public void updateQuality() {
-        Arrays.stream(items).forEach(item -> UpdateStrategy.strategySelector(item).update(item));
+        Arrays.stream(items).forEach(item -> StrategySelector.defaultStrategySelector(item).update(item));
     }
 
     /**

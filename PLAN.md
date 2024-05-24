@@ -35,7 +35,7 @@ item. Some resources about techniques to apply can be found here:
 ### Post Step 3 remarks:
 I tried to make the commits small, so it is clear in what order i decide to refactor.
 I also want to remark that [commit 34](https://github.com/RobbeHeirman/GildedRose-Conundra/commit/bdcb91ac0df73f3126cb9158a6a62a9dac919346)
-is the simple clean solution. Quoting: [Simple is better then complex](https://peps.python.org/pep-0020/).
+is the simple solution. Quoting: [Simple is better then complex](https://peps.python.org/pep-0020/).
 If the 'real world' use case was this small i think the refactors that will follow will just complicate things with marginal
 generalization and adaptability benefits. But writing cool abstractions is fun and since this is a refactoring exercise we
 will go a bit deeper into what further refactors we can appply.
@@ -46,10 +46,15 @@ is actually an invariant property on Item. We will not implement using DbC as th
 should probably do some precondition check before running our items 
 (as we cannot check this on item construction because of the overpowered Goblin)
 
-### Step5: What do we recognize in our current code setup?
+## Step5: What do we recognize in our current code setup?
 Our code looks clean now, but potential future problems may arise with the current code setup. If more types
 of items define we will need to write more methods to handle the behaviour in the GildedRoseApp. Resulting in one big 
 class where all our methods will live in. One specific pattern comes to mind that solves [this](https://refactoring.guru/design-patterns/strategy)
-The idea is that the GildedTros App only wants to update an item, but doesn't really need to hold the details of the
+The idea is that the GildedRose App only wants to update an item, but doesn't really need to hold the details of the
 implementation.
+
+## Step6: Now that we encapsulated the concrete logic 
+The logic is split off, looks great! Still one issue tho... What if we want to open a seconded Gilded Rose with other
+items and requirements? Gilded Rose depends on the StrategySelector... So let's change that!
+Adding an interface for a strategyselector so we can easily switch out selectors.
 
