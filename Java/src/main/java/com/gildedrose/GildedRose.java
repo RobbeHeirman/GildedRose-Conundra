@@ -39,17 +39,10 @@ class GildedRose {
     }
 
     private static void updateRegularItem(final Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
         item.sellIn--;
 
-        if (item.sellIn >= 0) {
-            return;
-        }
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
-        }
+        final int subtractQuality = item.sellIn < 0 ? 2 : 1;
+        item.quality = Math.max(0, item.quality - subtractQuality);
     }
 
     public void updateQuality() {
