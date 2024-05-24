@@ -33,4 +33,4 @@ later on. We do best effort to cover edge cases.
 Before we actually start to refactor we can form an intuitive plan in what direction we want to refactor.
 The requirements describe behaviour for 'types' of items. We probably want to end up isolating behaviour for each
 item. Some resources about techniques to apply can be found here: 
-https://refactoring.guru/refactoring/techniques/simplifying-conditional-expressions
+[Refactoring Guru - Conditionals](https://refactoring.guru/refactoring/techniques/simplifying-conditional-expressions)
