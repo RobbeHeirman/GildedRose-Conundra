@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -15,12 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GildedRoseTest {
     static final String REGULAR_ITEM = "Carrot on a stick";
+
     Map<String, Item> getSomeItemsToTest() {
         Item[] items = {
-                new Item(REGULAR_ITEM, 15, 20),
-                new Item(Constants.AGED_ITEM, 15, 20),
-                new Item(Constants.LEGENDARY_ITEM, 15, Constants.LEGENDARY_QUALITY),
-                new Item(Constants.BACKSTAGE_ITEM, 15, 20),
+            new Item(REGULAR_ITEM, 15, 20),
+            new Item(Constants.AGED_ITEM, 15, 20),
+            new Item(Constants.LEGENDARY_ITEM, 15, Constants.LEGENDARY_QUALITY),
+            new Item(Constants.BACKSTAGE_ITEM, 15, 20),
         };
 
         return Arrays.stream(items)
@@ -65,9 +66,50 @@ class GildedRoseTest {
         checkItem(testItems.get(Constants.AGED_ITEM), -101, Constants.MAX_ITEM_QUALITY);
         checkItem(testItems.get(Constants.LEGENDARY_ITEM), 15, Constants.LEGENDARY_QUALITY);
         checkItem(testItems.get(Constants.BACKSTAGE_ITEM), -101, Constants.MIN_ITEM_QUALITY);
-
     }
 
+    @Test
+    void customStrategySelectorTest() {
+        //Rats doing trick?: https://www.youtube.com/watch?v=AV9z0c1hjnA
+        UpdateStrategy infestedRatStrategy = item -> {
+            item.sellIn--;
+            item.quality = 0;
+        };
+        UpdateStrategy legendaryItemFeedsOnRats = item -> item.quality++;
+        StrategySelector selector = item -> item.name.equals(Constants.LEGENDARY_ITEM) ? legendaryItemFeedsOnRats : infestedRatStrategy;
+
+        Map<String, Item> someItemsToTest = getSomeItemsToTest();
+        GildedRose app = new GildedRose(someItemsToTest.values().toArray(new Item[0]), selector);
+
+        app.updateQuality();
+        checkItem(someItemsToTest.get(REGULAR_ITEM), 14, 0);
+        checkItem(someItemsToTest.get(Constants.AGED_ITEM), 14, 0);
+        checkItem(someItemsToTest.get(Constants.LEGENDARY_ITEM), 15, Constants.LEGENDARY_QUALITY + 1);
+        checkItem(someItemsToTest.get(Constants.BACKSTAGE_ITEM), 14, 0);
+    }
+
+    @Test
+    void directRunnable() {
+        UpdateStrategy cheeseLovingStoreCleric = item -> {
+            item.quality /= 2;
+            item.sellIn--;
+        };
+
+        Map<String, Item> someItemsToTest = getSomeItemsToTest();
+        List<Runnable> runnableList = someItemsToTest.values()
+            .stream()
+            .map(item -> (Runnable) () -> {
+                UpdateStrategy strategy = item.name.equals(Constants.AGED_ITEM) ? cheeseLovingStoreCleric : StrategySelector.defaultStrategySelector(item);
+                strategy.update(item);
+            })
+            .toList();
+
+        GildedRose app = new GildedRose(runnableList);
+
+        app.updateQuality();
+        checkItem(someItemsToTest.get(Constants.AGED_ITEM), 14, 10);
+        checkItem(someItemsToTest.get(REGULAR_ITEM), 14, 19);
+    }
 
     @Nested
     class PreConditionTests {
