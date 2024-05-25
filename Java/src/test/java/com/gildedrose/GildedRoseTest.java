@@ -148,9 +148,9 @@ class GildedRoseTest {
             );
 
             assertSellInQualityEqualAfterDays(
-                createLegendaryItem(2, 50),
+                createLegendaryItem(2, Constants.LEGENDARY_QUALITY),
                 2,
-                50,
+                Constants.LEGENDARY_QUALITY,
                 2
             );
 

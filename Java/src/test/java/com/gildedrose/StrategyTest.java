@@ -83,4 +83,39 @@ public class StrategyTest {
         }
     }
 
+    @Nested
+    class LegendaryItemTest {
+        Item createLegendaryItem(int sellIn, int quality) {
+            return new Item(Constants.LEGENDARY_ITEM, sellIn, quality);
+        }
+
+        void testLegendaryStrategy(Item item, int expectedSellIn, int expectedQuality, int runDays) {
+            testStrategy(item, UpdateStrategy::updateDefaultLegendaryItem, expectedSellIn, expectedQuality, runDays);
+        }
+
+        @Test
+        void happyDay() {
+            testLegendaryStrategy(
+                createLegendaryItem(2, 40),
+                2,
+                40,
+                1
+            );
+
+            testLegendaryStrategy(
+                createLegendaryItem(2, Constants.LEGENDARY_QUALITY),
+                2,
+                Constants.LEGENDARY_QUALITY,
+                2
+            );
+
+            testLegendaryStrategy(
+                createLegendaryItem(2, 1),
+                2,
+                1,
+                3
+            );
+        }
+    }
+
 }
