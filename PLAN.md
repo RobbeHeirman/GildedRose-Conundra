@@ -66,7 +66,7 @@ to switch out the update logic of the items.
 
 ## Step8: Covering some lose ends
 the following things still bother me
-- We select our strategies in ever iteration. While those can actually be selected once
+- We select our strategies in ever iteration. While those can actually be selected once. DONE
 - Our logic has been split out but all our tests still test the Gilded Rose. They should be moved to there own units.
 - The pre-conditions of the item is tightly coupled with the GildedRose and should be moved
 - Don't forget to implement the new request :P
