@@ -84,6 +84,61 @@ public class StrategyTest {
     }
 
     @Nested
+    class AgedItemTest {
+        Item createAgedItem(int sellIn, int quality) {
+            return new Item("Aged Brie", sellIn, quality);
+        }
+
+        void testAgedStrategy(Item item, int expectedSellIn, int expectedQuality, int runDays) {
+            testStrategy(item, UpdateStrategy::updateDefaultAgedItem, expectedSellIn, expectedQuality, runDays);
+        }
+
+        @Test
+        void happyDay() {
+            testAgedStrategy(
+                createAgedItem(1, 1),
+                0,
+                2,
+                1
+            );
+        }
+
+        @Test
+        void pastSellIn() {
+            testAgedStrategy(
+                createAgedItem(0, 1),
+                -1,
+                3,
+                1
+            );
+        }
+
+        @Test
+        void notBiggerThenMax() {
+            testAgedStrategy(
+                createAgedItem(1, 50),
+                0,
+                50,
+                1
+            );
+
+            testAgedStrategy(
+                createAgedItem(2, 49),
+                0,
+                50,
+                2
+            );
+
+            testAgedStrategy(
+                createAgedItem(0, 49),
+                -1,
+                50,
+                1
+            );
+        }
+    }
+
+    @Nested
     class LegendaryItemTest {
         Item createLegendaryItem(int sellIn, int quality) {
             return new Item(Constants.LEGENDARY_ITEM, sellIn, quality);
@@ -239,9 +294,6 @@ public class StrategyTest {
                     3
                 );
             }
-
-
         }
     }
-
 }

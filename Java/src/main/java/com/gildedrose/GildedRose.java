@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
  * {@link Item#sellIn} modifying the objects on each updateQuality call.
  */
 public class GildedRose {
-    Item[] items;
-    final Iterable<Runnable> runnableItems;
+    private Item[] items;
+    private final Iterable<Runnable> runnableItems;
 
     /**
      * @param items Simple GildedRose items. Will be modified by GildedRose.
