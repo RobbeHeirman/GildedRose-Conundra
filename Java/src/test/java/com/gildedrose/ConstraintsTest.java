@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-import com.gildedrose.item_constraints.ItemConstraints;
+import com.gildedrose.item_constraints.ItemConstraint;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,7 +11,7 @@ public class ConstraintsTest {
     public void minimumConstraintTest() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.minQualityConstraint(new Item("money", 15, 1), 2)
+            () -> ItemConstraint.minQualityConstraint(new Item("money", 15, 1), 2)
         );
     }
 
@@ -19,7 +19,7 @@ public class ConstraintsTest {
     void maximumConstraintTest() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.maxQualityConstraint(new Item("bills", 15, 2), 1)
+            () -> ItemConstraint.maxQualityConstraint(new Item("bills", 15, 2), 1)
         );
     }
 
@@ -27,7 +27,7 @@ public class ConstraintsTest {
     void exactConstraintTest() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.exactQualityConstraint(new Item("Cat", 2, 1000), 9999)
+            () -> ItemConstraint.exactQualityConstraint(new Item("Cat", 2, 1000), 9999)
         );
     }
 
@@ -35,12 +35,12 @@ public class ConstraintsTest {
     void normalItemConstraintTest() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.defaultItemConstraintsCheck(new Item("Blackened Defias Armor", 10, 51))
+            () -> ItemConstraint.defaultItemConstraintsCheck(new Item("Blackened Defias Armor", 10, 51))
         );
 
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.defaultItemConstraintsCheck(new Item("Cruel Barb", 10, -1))
+            () -> ItemConstraint.defaultItemConstraintsCheck(new Item("Cruel Barb", 10, -1))
         );
     }
 
@@ -48,7 +48,7 @@ public class ConstraintsTest {
     void legendaryConstraintTest() {
         assertThrows(
             IllegalArgumentException.class,
-            () -> ItemConstraints.legendaryItemConstraintsCheck(new Item(Constants.LEGENDARY_ITEM, 15, 79))
+            () -> ItemConstraint.legendaryItemConstraintsCheck(new Item(Constants.LEGENDARY_ITEM, 15, 79))
         );
     }
 }

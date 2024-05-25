@@ -6,7 +6,7 @@ import java.util.Map;
 public class StrategySelectorBuilder {
     private UpdateStrategy defaultUpdateStrategy;
     private final Map<String, UpdateStrategy> mappedStrategies = new HashMap<>();
-    StrategySelectorBuilder() {
+    public StrategySelectorBuilder() {
         defaultUpdateStrategy = (item) -> {};
     }
     public StrategySelectorBuilder setDefault(UpdateStrategy strategy) {
