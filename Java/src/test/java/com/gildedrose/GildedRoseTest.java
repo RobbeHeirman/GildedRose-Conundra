@@ -165,21 +165,21 @@ class GildedRoseTest {
 
     @Nested
     class BackstagePassTest {
-        Item backstagePassFactory(int sellIn, int quality) {
-            return new Item("Backstage passes to a TAFKAL80ETC concert", sellIn, quality);
+        Item createBackstagePasses(int sellIn, int quality) {
+            return new Item(Constants.BACKSTAGE_ITEM, sellIn, quality);
         }
 
         @Test
         void happyDay() {
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(12, 14),
+                createBackstagePasses(12, 14),
                 11,
                 15,
                 1
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(12, 14),
+                createBackstagePasses(12, 14),
                 10,
                 16,
                 2
@@ -189,21 +189,21 @@ class GildedRoseTest {
         @Test
         void belowTen() {
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(10, 34),
+                createBackstagePasses(10, 34),
                 9,
                 36,
                 1
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(11, 34),
+                createBackstagePasses(11, 34),
                 9,
                 37,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(11, 34),
+                createBackstagePasses(11, 34),
                 5,
                 45,
                 6
@@ -213,21 +213,21 @@ class GildedRoseTest {
         @Test
         void belowFive() {
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(5, 12),
+                createBackstagePasses(5, 12),
                 4,
                 15,
                 1
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(6, 12),
+                createBackstagePasses(6, 12),
                 4,
                 17,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(5, 12),
+                createBackstagePasses(5, 12),
                 0,
                 27,
                 5
@@ -237,23 +237,23 @@ class GildedRoseTest {
         @Test
         void expiredPasses() {
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(1, 40),
+                createBackstagePasses(1, 40),
                 -1,
-                0,
+                Constants.MIN_ITEM_QUALITY,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(0, 1),
+                createBackstagePasses(0, 1),
                 -2,
-                0,
+                Constants.MIN_ITEM_QUALITY,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(1, 49),
+                createBackstagePasses(1, 49),
                 -1,
-                0,
+                Constants.MIN_ITEM_QUALITY,
                 2
             );
         }
@@ -261,23 +261,23 @@ class GildedRoseTest {
         @Test
         void notAboveMax() {
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(20, 50),
+                createBackstagePasses(20, 50),
                 19,
-                50,
+                Constants.MAX_ITEM_QUALITY,
                 1
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(10, 49),
+                createBackstagePasses(10, 49),
                 8,
-                50,
+                Constants.MAX_ITEM_QUALITY,
                 2
             );
 
             assertSellInQualityEqualAfterDays(
-                backstagePassFactory(5, 49),
+                createBackstagePasses(5, 49),
                 2,
-                50,
+                Constants.MAX_ITEM_QUALITY,
                 3
             );
         }

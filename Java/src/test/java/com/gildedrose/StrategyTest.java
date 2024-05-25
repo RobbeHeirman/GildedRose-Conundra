@@ -21,8 +21,8 @@ public class StrategyTest {
 
         }
 
-        void testNormalStrategy(Item item,int expectedSellIn, int expectedQuality, int runDays) {
-            testStrategy(item, UpdateStrategy::updateDefaultAgedItem, expectedSellIn, expectedQuality, runDays);
+        void testNormalStrategy(Item item, int expectedSellIn, int expectedQuality, int runDays) {
+            testStrategy(item, UpdateStrategy::updateDefaultRegularItem, expectedSellIn, expectedQuality, runDays);
         }
 
         @Test
@@ -115,6 +115,132 @@ public class StrategyTest {
                 1,
                 3
             );
+        }
+
+        @Nested
+        class BackstagePassTest {
+            Item createBackstagePasses(int sellIn, int quality) {
+                return new Item(Constants.BACKSTAGE_ITEM, sellIn, quality);
+            }
+
+            void testBackstagePassStrategy(Item item, int expectedSellIn, int expectedQuality, int runDays) {
+                testStrategy(item, UpdateStrategy::updateDefaultBackStageItem, expectedSellIn, expectedQuality, runDays);
+            }
+
+            @Test
+            void happyDay() {
+                testBackstagePassStrategy(
+                    createBackstagePasses(12, 14),
+                    11,
+                    15,
+                    1
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(12, 14),
+                    10,
+                    16,
+                    2
+                );
+            }
+
+            @Test
+            void belowTen() {
+                testBackstagePassStrategy(
+                    createBackstagePasses(10, 34),
+                    9,
+                    36,
+                    1
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(11, 34),
+                    9,
+                    37,
+                    2
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(11, 34),
+                    5,
+                    45,
+                    6
+                );
+            }
+
+            @Test
+            void belowFive() {
+                testBackstagePassStrategy(
+                    createBackstagePasses(5, 12),
+                    4,
+                    15,
+                    1
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(6, 12),
+                    4,
+                    17,
+                    2
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(5, 12),
+                    0,
+                    27,
+                    5
+                );
+            }
+
+            @Test
+            void expiredPasses() {
+                testBackstagePassStrategy(
+                    createBackstagePasses(1, 40),
+                    -1,
+                    Constants.MIN_ITEM_QUALITY,
+                    2
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(0, 1),
+                    -2,
+                    Constants.MIN_ITEM_QUALITY,
+                    2
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(1, 49),
+                    -1,
+                    Constants.MIN_ITEM_QUALITY,
+                    2
+                );
+            }
+
+            @Test
+            void notAboveMax() {
+                testBackstagePassStrategy(
+                    createBackstagePasses(20, 50),
+                    19,
+                    Constants.MAX_ITEM_QUALITY,
+                    1
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(10, 49),
+                    8,
+                    50,
+                    2
+                );
+
+                testBackstagePassStrategy(
+                    createBackstagePasses(5, 49),
+                    2,
+                    Constants.MAX_ITEM_QUALITY,
+                    3
+                );
+            }
+
+
         }
     }
 
