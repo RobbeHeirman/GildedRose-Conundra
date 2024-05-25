@@ -5,6 +5,16 @@ package com.gildedrose;
  * The constraints can be used as a pre, post condition check on item operations
  */
 public class ItemConstraints {
+    private ItemConstraints(){}
+
+    public static void enforceDefaultConstraints(Item item){
+        if(item.name.equals(Constants.LEGENDARY_ITEM)) {
+            legendaryItemConstraintsCheck(item);
+            return;
+        }
+        defaultItemConstraintsCheck(item);
+    }
+
     public static void maxQualityConstraint(Item item, int quality) {
         if (item.quality > quality) {
             throw new IllegalArgumentException("Quality should be less then %s. But is %s for %s"
