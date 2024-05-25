@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import com.gildedrose.item_update_strategy.UpdateStrategy;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 

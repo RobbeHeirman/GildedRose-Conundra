@@ -1,4 +1,7 @@
-package com.gildedrose;
+package com.gildedrose.item_update_strategy;
+
+import com.gildedrose.Constants;
+import com.gildedrose.Item;
 
 public interface StrategySelector {
     UpdateStrategy getUpdateStrategy(Item item);

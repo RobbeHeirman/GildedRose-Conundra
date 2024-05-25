@@ -1,5 +1,9 @@
 package com.gildedrose;
 
+import com.gildedrose.item_update_strategy.StrategySelector;
+import com.gildedrose.item_update_strategy.StrategySelectorBuilder;
+import com.gildedrose.item_update_strategy.UpdateStrategy;
+
 import java.util.Arrays;
 import java.util.List;
 

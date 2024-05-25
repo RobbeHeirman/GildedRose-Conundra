@@ -1,4 +1,4 @@
-package com.gildedrose;
+package com.gildedrose.item_update_strategy;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,7 @@
-package com.gildedrose;
+package com.gildedrose.item_constraints;
+
+import com.gildedrose.Constants;
+import com.gildedrose.Item;
 
 /**
  * Class will contain functionality to enforce constraints on items.

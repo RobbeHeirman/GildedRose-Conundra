@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import com.gildedrose.item_constraints.ItemConstraints;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
