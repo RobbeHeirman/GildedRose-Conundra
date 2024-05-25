@@ -69,15 +69,17 @@ class GildedRoseTest {
     }
 
     @Test
-    void customStrategySelectorTest() {
+    void customRunnableSelectorTest() {
         //Rats doing trick?: https://www.youtube.com/watch?v=AV9z0c1hjnA
         UpdateStrategy infestedRatStrategy = item -> {
             item.sellIn--;
             item.quality = 0;
         };
         UpdateStrategy legendaryItemFeedsOnRats = item -> item.quality++;
-        StrategySelector selector = item -> item.name.equals(Constants.LEGENDARY_ITEM) ? legendaryItemFeedsOnRats : infestedRatStrategy;
-
+        ItemRunnableFactory selector = item -> {
+            UpdateStrategy strat = item.name.equals(Constants.LEGENDARY_ITEM) ? legendaryItemFeedsOnRats : infestedRatStrategy;
+            return () -> strat.update(item);
+        };
         Map<String, Item> someItemsToTest = getSomeItemsToTest();
         GildedRose app = new GildedRose(someItemsToTest.values().toArray(new Item[0]), selector);
 

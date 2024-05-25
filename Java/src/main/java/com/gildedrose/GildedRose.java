@@ -16,12 +16,12 @@ public class GildedRose {
      * @param items Simple GildedRose items. Will be modified by GildedRose.
      */
     public GildedRose(Item[] items) {
-        this(items, StrategySelector::defaultStrategySelector);
+        this(items, ItemRunnableFactory::defaultRunnableFactory);
     }
 
-    public GildedRose(Item[] items, StrategySelector strategySelector) {
+    public GildedRose(Item[] items, ItemRunnableFactory factory) {
         this(Arrays.stream(items)
-            .map(item -> (Runnable) () -> strategySelector.getUpdateStrategy(item).update(item))
+            .map(factory::getRunnable)
             .toList());
     }
 
