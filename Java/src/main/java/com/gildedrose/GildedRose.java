@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  * {@link Item#sellIn} modifying the objects on each updateQuality call.
  */
 public class GildedRose {
-    private Item[] items; // TODO: Got to fight the goblin before we can remove this unused property
+    Item[] items; // TODO: Got to fight the goblin before we can remove this unused property
     private final Iterable<Runnable> runnableItems;
 
     /**
