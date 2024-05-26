@@ -11,6 +11,7 @@ public interface StrategySelector {
             case Constants.AGED_ITEM -> UpdateStrategy::updateDefaultAgedItem;
             case Constants.BACKSTAGE_ITEM -> UpdateStrategy::updateDefaultBackStageItem;
             case Constants.LEGENDARY_ITEM -> UpdateStrategy::updateDefaultLegendaryItem;
+            case Constants.CONJURED_ITEM -> UpdateStrategy::updateDefaultConjuredItem;
             default -> UpdateStrategy::updateDefaultRegularItem;
         };
     }
