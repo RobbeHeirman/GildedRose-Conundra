@@ -296,14 +296,60 @@ public class StrategyTest {
                 );
             }
         }
+
         @Nested
-        class ConjuredItemTest() {
-            void testConjuredStrategy(Item item, int expectedSellIn, int expectedQuality) {
+        class ConjuredItemTest {
+            void testConjuredStrategy(Item item, int expectedSellIn, int expectedQuality, int runDays) {
+                testStrategy(item, UpdateStrategy::updateDefaultConjuredItem, expectedSellIn, expectedQuality, runDays);
             }
+
+            Item createConjuredItem(int sellIn, int quality) {
+                return new Item(Constants.CONJURED_ITEM, sellIn, quality);
+            }
+
+            @Test
             void happyDay() {
-
+                testConjuredStrategy(
+                    createConjuredItem(10, 10),
+                    9,
+                    8,
+                    1
+                );
             }
 
+            @Test
+            void pastSellIn() {
+                testConjuredStrategy(
+                    createConjuredItem(0, 10),
+                    -1,
+                    6,
+                    1
+                );
+            }
+
+            @Test
+            void minQualityTest() {
+                testConjuredStrategy(
+                    createConjuredItem(1, 1),
+                    0,
+                    0,
+                    1
+                );
+
+                testConjuredStrategy(
+                    createConjuredItem(1, 2),
+                    0,
+                    0,
+                    1
+                );
+
+                testConjuredStrategy(
+                    createConjuredItem(0, 3),
+                    -1,
+                    0,
+                    1
+                );
+            }
         }
     }
 }

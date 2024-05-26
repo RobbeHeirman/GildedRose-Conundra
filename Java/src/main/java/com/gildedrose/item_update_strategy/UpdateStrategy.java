@@ -39,7 +39,7 @@ public interface UpdateStrategy {
     static void updateDefaultConjuredItem(final Item item) {
         item.sellIn--;
 
-        final int substractQuality = item.sellIn < 0 ? 4 : 1;
+        final int substractQuality = item.sellIn < 0 ? 4 : 2;
         item.quality = Math.max(Constants.MIN_ITEM_QUALITY, item.quality - substractQuality);
     }
 }
