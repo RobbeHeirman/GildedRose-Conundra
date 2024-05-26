@@ -13,7 +13,7 @@ public interface UpdateStrategy {
     /**
      * Default strategy for an AgedItem based on the gilded Rose specs.
      * Will decrement items.sellIn by one
-     * Will increment the items quality with 1 if sellIn is bigger then 0 and with 2 if sellIn is 0 or smaller
+     * Will increment the items quality with 1 if sellIn is bigger than 0 and with 2 if sellIn is 0 or smaller
      */
     static void updateDefaultAgedItem(final Item item) {
         item.sellIn--;

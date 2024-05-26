@@ -70,5 +70,5 @@ the following things still bother me
 - Our logic has been split out but all our tests still test the Gilded Rose. They should be moved to there own units. DONE
 - The pre-conditions of the item is tightly coupled with the GildedRose and should be moved. DONE
 - Don't forget to implement the new request :P Done
-- Document public functions
+- Document public functions Done
 

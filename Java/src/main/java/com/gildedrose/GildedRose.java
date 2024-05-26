@@ -15,18 +15,27 @@ public class GildedRose {
     private final Iterable<Runnable> runnableItems;
 
     /**
+     * Here for backwards compatibility. Will take a list of items and update them when updateQuality is called
+     * based on the Gilded Rose specifications.
      * @param items Simple GildedRose items. Will be modified by GildedRose.
      */
     public GildedRose(Item[] items) {
         this(items, ItemRunnableFactory::defaultRunnableFactory);
     }
 
+    /**
+     * Alternative constructor that takes a ItemRunnableFactory.
+     * The behaviour of updateQuality() on item is provided by the factory
+     */
     public GildedRose(Item[] items, ItemRunnableFactory factory) {
         this(Arrays.stream(items)
             .map(factory::getRunnable)
             .toList());
     }
 
+    /**
+     * S
+     */
     public GildedRose(Iterable<Runnable> runnables) {
         runnableItems = runnables;
     }
@@ -43,7 +52,6 @@ public class GildedRose {
 
     /**
      * calls updateQuality for n days
-     *
      * @param days is the amount of days we want to call updateQuality for.
      */
     public void updateQualityForDays(int days) {
