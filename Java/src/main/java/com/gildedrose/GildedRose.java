@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
  * {@link Item#sellIn} modifying the objects on each updateQuality call.
  */
 public class GildedRose {
-    private Item[] items;
+    private Item[] items; // TODO: Got to fight the goblin before we can remove this unused property
     private final Iterable<Runnable> runnableItems;
 
     /**
@@ -44,27 +44,9 @@ public class GildedRose {
     /**
      * calls updateQuality for n days
      *
-     * @param days is the amount of days we wantto call updateQuality for.
+     * @param days is the amount of days we want to call updateQuality for.
      */
     public void updateQualityForDays(int days) {
         IntStream.range(0, days).forEach(i -> updateQuality());
-    }
-
-    /**
-     * TODO: This is ugly and should probably be somewhere else
-     */
-    protected void testItemsAreValid(Item[] items) {
-        for (Item item : items) {
-            if (item.name.equals(Constants.LEGENDARY_ITEM)) {
-                if (item.quality != Constants.LEGENDARY_QUALITY) {
-                    throw new IllegalArgumentException("Item is invalid: %s".formatted(item.name));
-                }
-            } else {
-                if (item.quality < Constants.MIN_ITEM_QUALITY || item.quality > Constants.MAX_ITEM_QUALITY) {
-                    throw new IllegalArgumentException("Item is invalid: %s".formatted(item.name));
-
-                }
-            }
-        }
     }
 }
