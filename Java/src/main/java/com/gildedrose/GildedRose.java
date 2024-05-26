@@ -34,7 +34,7 @@ public class GildedRose {
     }
 
     /**
-     * S
+     * Direclty take runnables to be executed.
      */
     public GildedRose(Iterable<Runnable> runnables) {
         runnableItems = runnables;
