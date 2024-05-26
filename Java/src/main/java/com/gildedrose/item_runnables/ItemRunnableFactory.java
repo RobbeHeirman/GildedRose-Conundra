@@ -1,6 +1,7 @@
 package com.gildedrose.item_runnables;
 
 import com.gildedrose.Item;
+import com.gildedrose.item_constraints.InvariantNameConstraint;
 import com.gildedrose.item_constraints.ItemConstraint;
 import com.gildedrose.item_update_strategy.StrategySelector;
 import com.gildedrose.item_update_strategy.UpdateStrategy;
@@ -17,7 +18,8 @@ public interface ItemRunnableFactory {
      */
     static Runnable defaultRunnableFactory(Item item) {
         ItemConstraint constraint = ItemConstraint.getItemConstraints(item);
+        ItemConstraint invariantNameConstraint = new InvariantNameConstraint(item.name);
         UpdateStrategy strategy = StrategySelector.defaultStrategySelector(item);
-        return new RunnableItem(item, strategy, constraint);
+        return new RunnableItem(item, strategy, constraint, invariantNameConstraint);
     }
 }

@@ -15,16 +15,24 @@ import java.util.Arrays;
 public class RunnableItem implements Runnable {
     private final Item item;
     private final UpdateStrategy strategy;
+    private final ItemConstraint[] constraints;
 
     public RunnableItem(Item item, UpdateStrategy strategy, ItemConstraint... constraints) {
-        Arrays.stream(constraints).forEach(constraint -> constraint.checkConstraint(item));
-
+        this.constraints = constraints;
         this.item = item;
         this.strategy = strategy;
+
+        checkConstraints();
     }
 
     @Override
     public void run() {
+        checkConstraints();
         strategy.update(item);
+    }
+
+    private void checkConstraints() {
+        Arrays.stream(constraints).forEach(constraint -> constraint.checkConstraint(item));
+
     }
 }

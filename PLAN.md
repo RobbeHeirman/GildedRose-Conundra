@@ -72,3 +72,10 @@ the following things still bother me
 - Don't forget to implement the new request :P Done
 - Document public functions Done
 
+## Step9: We still have one issue.
+Currently, we select a strategy based on the name. We assumed the name of the item can never change.
+But with the current implementation of Item the name property is public. I think the name of an item should be constant
+during the lifetime of the object (this makes the most sense to me) and is something mr goblin did not account for.
+For now we will keep track of name changes and throw an error if this occurs. Other options could be to change
+the strategy with the item or keep the current implementation.
+
