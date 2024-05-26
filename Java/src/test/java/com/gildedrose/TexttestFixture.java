@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import com.gildedrose.item_constraints.ItemConstraint;
+import com.gildedrose.item_runnables.RunnableItem;
 import com.gildedrose.item_update_strategy.StrategySelector;
 import com.gildedrose.item_update_strategy.StrategySelectorBuilder;
 import com.gildedrose.item_update_strategy.UpdateStrategy;
@@ -23,15 +25,18 @@ public class TexttestFixture {
             // this conjured item does not work properly yet
             new Item("Conjured Mana Cake", 3, 6)};
 
+        // Just an example that we can set our strategies at runtime due to our refactor.
         StrategySelector selector = new StrategySelectorBuilder()
             .setDefault(UpdateStrategy::updateDefaultAgedItem)
             .setStrategy(Constants.AGED_ITEM, UpdateStrategy::updateDefaultRegularItem)
             .setStrategy(Constants.BACKSTAGE_ITEM, UpdateStrategy::updateDefaultBackStageItem)
             .setStrategy(Constants.LEGENDARY_ITEM, UpdateStrategy::updateDefaultLegendaryItem)
+            .setStrategy(Constants.CONJURED_ITEM, UpdateStrategy::updateDefaultConjuredItem)
             .build();
 
+        // An example on how GildedRose can execute any runnable instead of being constraint to items.
         List<Runnable> runnableItems = Arrays.stream(items)
-            .map(item -> (Runnable) () -> selector.getUpdateStrategy(item).update(item))
+            .map(item -> (Runnable) new RunnableItem(item, selector.getUpdateStrategy(item), ItemConstraint.getItemConstraints(item)))
             .toList();
         GildedRose app = new GildedRose(runnableItems);
 
