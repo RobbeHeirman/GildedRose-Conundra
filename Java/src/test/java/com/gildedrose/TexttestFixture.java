@@ -27,8 +27,8 @@ public class TexttestFixture {
 
         // Just an example that we can set our strategies at runtime due to our refactor.
         StrategySelector selector = new StrategySelectorBuilder()
-            .setDefault(UpdateStrategy::updateDefaultAgedItem)
-            .setStrategy(Constants.AGED_ITEM, UpdateStrategy::updateDefaultRegularItem)
+            .setDefault(UpdateStrategy::updateDefaultRegularItem)
+            .setStrategy(Constants.AGED_ITEM, UpdateStrategy::updateDefaultAgedItem)
             .setStrategy(Constants.BACKSTAGE_ITEM, UpdateStrategy::updateDefaultBackStageItem)
             .setStrategy(Constants.LEGENDARY_ITEM, UpdateStrategy::updateDefaultLegendaryItem)
             .setStrategy(Constants.CONJURED_ITEM, UpdateStrategy::updateDefaultConjuredItem)
