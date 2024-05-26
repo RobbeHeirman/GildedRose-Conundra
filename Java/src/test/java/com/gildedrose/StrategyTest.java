@@ -296,5 +296,14 @@ public class StrategyTest {
                 );
             }
         }
+        @Nested
+        class ConjuredItemTest() {
+            void testConjuredStrategy(Item item, int expectedSellIn, int expectedQuality) {
+            }
+            void happyDay() {
+
+            }
+
+        }
     }
 }
