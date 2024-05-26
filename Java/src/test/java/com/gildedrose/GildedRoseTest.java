@@ -116,7 +116,7 @@ class GildedRoseTest {
     }
 
     @Nested
-    class PreConditionTests {
+    class ConstrainedTests {
         GildedRose createGildedRose(Item... items) {
             return new GildedRose(items);
         }
@@ -139,6 +139,16 @@ class GildedRoseTest {
             Item Ashbringer = new Item("Ashbringer", 10, 51);
             Item cookies = new Item("Home Made Cookies", 10, 999999999);
             assertThrows(IllegalArgumentException.class, () -> createGildedRose(Ashbringer, cookies));
+        }
+
+        @Test
+        void testNameChange() {
+            Item robbe = new Item("Robbe", 4 ,12);
+            GildedRose gildedRose = createGildedRose(robbe);
+            gildedRose.updateQuality();
+
+            robbe.name = "Ayla";
+            assertThrows(IllegalStateException.class, gildedRose::updateQuality);
         }
     }
 }

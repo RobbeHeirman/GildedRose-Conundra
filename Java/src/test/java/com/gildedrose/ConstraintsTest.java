@@ -1,5 +1,6 @@
 package com.gildedrose;
 
+import com.gildedrose.item_constraints.InvariantNameConstraint;
 import com.gildedrose.item_constraints.ItemConstraint;
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +50,18 @@ public class ConstraintsTest {
         assertThrows(
             IllegalArgumentException.class,
             () -> ItemConstraint.legendaryItemConstraintsCheck(new Item(Constants.LEGENDARY_ITEM, 15, 79))
+        );
+    }
+
+    @Test
+    void nameInvariantConstraintTest() {
+        assertThrows(
+            IllegalStateException.class,
+            () -> {
+                InvariantNameConstraint constraint = new InvariantNameConstraint("Robbe");
+                constraint.checkConstraint(new Item("Ayla", 4, 5));
+
+            }
         );
     }
 }
