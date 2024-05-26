@@ -9,8 +9,8 @@ public interface ItemRunnableFactory {
     Runnable getRunnable(Item item);
 
     static Runnable defaultRunnableFactory(Item item) {
-        ItemConstraint.defaultItemConstraintsCheck(item);
+        ItemConstraint constraint = ItemConstraint.getItemConstraints(item);
         UpdateStrategy strategy = StrategySelector.defaultStrategySelector(item);
-        return () -> strategy.update(item);
+        return new RunnableItem(item, strategy, constraint);
     }
 }

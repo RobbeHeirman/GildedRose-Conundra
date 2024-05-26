@@ -8,14 +8,10 @@ import com.gildedrose.Item;
  * The constraints can be used as a pre, post condition check on item operations
  */
 public interface ItemConstraint {
-    void  checkConstraint(Item item);
+    void checkConstraint(Item item);
 
-    static void enforceDefaultConstraints(Item item) {
-        if (item.name.equals(Constants.LEGENDARY_ITEM)) {
-            legendaryItemConstraintsCheck(item);
-            return;
-        }
-        defaultItemConstraintsCheck(item);
+    static ItemConstraint getItemConstraints(Item item) {
+        return item.name.equals(Constants.LEGENDARY_ITEM) ? ItemConstraint::legendaryItemConstraintsCheck : ItemConstraint::defaultItemConstraintsCheck;
     }
 
     static void maxQualityConstraint(Item item, int quality) {
